@@ -1,6 +1,8 @@
 from app.report.domain.Report import Report
 from app.report.infrastructure.outputadapter.ConsoleReportRepository import ConsoleReportRepository
 from app.schedule.domain.Schedule import Schedule
+from app.report.usecases.ReportGeneration import ReportGeneration
+from app.report.domain.ReportRepository import ReportRepository
 
 import pytest
 import uuid
@@ -69,3 +71,26 @@ def test_output_result(input_file_5_rows):
     except Exception as e:
 
         assert False, str(e)    
+
+
+def test_build_report_3_rows_use_case(input_file_3_rows):
+    console_repo = ConsoleReportRepository()
+    reportGeneration = ReportGeneration(console_repo)
+    with pytest.raises(Exception):
+        reportGeneration.build_report(input_file_3_rows)
+
+
+def test_build_report_without_path():
+    console_repo = ConsoleReportRepository()
+    reportGeneration = ReportGeneration(console_repo)
+    result = reportGeneration.build_report('')
+
+    assert result == None
+
+
+def test_build_report(input_file_5_rows):
+    console_repo = ConsoleReportRepository()
+    reportGeneration = ReportGeneration(console_repo)
+    result = reportGeneration.build_report(input_file_5_rows)
+
+    assert isinstance(result, list), "The result has to be of type 'list'"
