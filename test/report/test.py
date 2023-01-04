@@ -41,11 +41,9 @@ def test_convert_hour():
 
     assert expected_time==time_converted
 
-def test_get_hours_array():
-    console_repo = ConsoleReportRepository()
-    array = console_repo.get_hours_in_minutes()
-    expected_width = 1439
-    expected_height = 7
 
-    assert len(array) == expected_height
-    assert len(array[0]) == expected_width
+def test_process_file(input_file_3_rows):
+    console_repo = ConsoleReportRepository()
+    response = console_repo.read(input_file_3_rows)
+    console_repo.process(response)
+    assert console_repo.results != {}

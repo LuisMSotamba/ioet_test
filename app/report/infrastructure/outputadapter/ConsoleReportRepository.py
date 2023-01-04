@@ -5,32 +5,51 @@ from app.schedule.domain.Schedule import Schedule
 from app.employee.domain.Employee import Employee
 
 import datetime
+import uuid
 
 class ConsoleReportRepository(ReportRepository):
 
     def __init__(self) -> None:
-        self.results = []
+        self.results = {}
     
     def read(self, path: str) -> List[Schedule]:
+
         USER_NAME = 0
+        SCHEDULE = 1
         schedule_list:List[Schedule] = []
 
         with open(path, 'r') as file:
             for line in file.readlines():
                 line = line.strip()
                 name_separation_list:list = line.split("=")
-                days_times:list = name_separation_list[1].split(",")
-                schedule_list.extend(self._get_schedule(days_times, name_separation_list[USER_NAME])) 
+                days_times:list = name_separation_list[SCHEDULE].split(",")
+                employee = Employee(name=name_separation_list[USER_NAME], id=uuid.uuid4().hex)
+                schedule_list.extend(self.get_schedule(days_times, employee)) 
 
         return schedule_list
     
     def process(self, schedules: List[Schedule]) -> None:
-        pass
-    
+
+        schedules.sort(key=lambda item: item.start_time_in_minutes)
+        employee_matching = {}
+        tam_schedules = len(schedules)
+
+        for i in range(tam_schedules):
+            for j in range(i+1, tam_schedules):
+                if schedules[i].end_time_in_minutes >= schedules[j].start_time_in_minutes and schedules[i].name_day == schedules[j].name_day:
+                    key = f"{schedules[i].user.name} - {schedules[j].user.name} | {schedules[j].user.name} - {schedules[i].user.name}"
+                    if not key in employee_matching:
+                        employee_matching[key] = 0
+                    employee_matching[key] += 1
+
+        self.results = employee_matching
+
+
     def output(self) -> None:
         pass
 
-    def _get_schedule(self, days_times: List[str], user_name: str) -> List[Schedule]:
+    def get_schedule(self, days_times: List[str], employee: Employee) -> List[Schedule]:
+
         DAY = 2
         START_TIME_INDEX = 0
         END_TIME_INDEX = 1
@@ -44,7 +63,6 @@ class ConsoleReportRepository(ReportRepository):
             end_time = datetime.datetime.strptime(final_time[END_TIME_INDEX], "%H:%M") 
             start_time_in_minutes = self.convert_time_to_minutes(start_time)
             end_time_in_minutes = self.convert_time_to_minutes(end_time)
-            employee = Employee(name=user_name)
             schedule = Schedule(
                 user=employee,
                 start_time=start_time,
@@ -58,26 +76,6 @@ class ConsoleReportRepository(ReportRepository):
         return schedule_list
     
     def convert_time_to_minutes(self, time:datetime.time):
+
         MINUTES = 60
         return (time.hour * MINUTES) + time.minute
-
-    def get_hours_in_minutes(self):
-
-        DAYS_IN_WEEK = 7
-        HOURS_IN_MINUTES = 1439
-
-        days_hours:List[List[str]] = []
-        i = 0
-        day = -1
-
-        while i < (HOURS_IN_MINUTES * DAYS_IN_WEEK):
-            position = i % HOURS_IN_MINUTES
-            i += 1
-            if position == 0:
-                day += 1
-                days_hours.append([])
-            days_hours[day].append('')
-
-        return days_hours
-            
-            
