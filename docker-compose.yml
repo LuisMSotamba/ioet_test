@@ -1,0 +1,12 @@
+version: '3.9'
+services:
+  ioet_project:
+    build: 
+      context: .
+      dockerfile: dockerfiles/python/.Dockerfile
+    container_name: ioet_python_environment
+    tty: true
+    stdin_open: true
+    command: /opt/ve_ioet/bin/python /app/app/Application/main.py
+    volumes:
+      - .:/app/
