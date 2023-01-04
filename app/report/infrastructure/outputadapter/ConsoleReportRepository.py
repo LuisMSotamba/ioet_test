@@ -19,7 +19,12 @@ class ConsoleReportRepository(ReportRepository):
         schedule_list:List[Schedule] = []
 
         with open(path, 'r') as file:
-            for line in file.readlines():
+            
+            lines = file.readlines()
+            if len(lines)<5:
+                raise Exception('The file contains less than 5 registers') 
+
+            for line in lines:
                 line = line.strip()
                 name_separation_list:list = line.split("=")
                 days_times:list = name_separation_list[SCHEDULE].split(",")

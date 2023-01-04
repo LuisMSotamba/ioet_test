@@ -2,6 +2,7 @@ from app.report.domain.Report import Report
 from app.report.infrastructure.outputadapter.ConsoleReportRepository import ConsoleReportRepository
 from app.schedule.domain.Schedule import Schedule
 
+import pytest
 import uuid
 import datetime
 
@@ -26,12 +27,18 @@ def test_report_defaults():
     assert report.result == ''
 
 
-def test_read_file(input_file_3_rows):
+def test_read_file(input_file_5_rows):
     console_repo = ConsoleReportRepository()
-    response = console_repo.read(input_file_3_rows)
+    response = console_repo.read(input_file_5_rows)
     assert isinstance(response,list), f'{response.__class__} is not instance of list' 
     assert isinstance(response[0],Schedule)
 
+
+def test_read_file_with_3_rows(input_file_3_rows):
+    console_repo = ConsoleReportRepository()
+    with pytest.raises(Exception):
+        console_repo.read(input_file_3_rows)
+    
 
 def test_convert_hour():
     console_repo = ConsoleReportRepository()
@@ -42,8 +49,8 @@ def test_convert_hour():
     assert expected_time==time_converted
 
 
-def test_process_file(input_file_3_rows):
+def test_process_file(input_file_5_rows):
     console_repo = ConsoleReportRepository()
-    response = console_repo.read(input_file_3_rows)
+    response = console_repo.read(input_file_5_rows)
     console_repo.process(response)
     assert console_repo.results != {}
