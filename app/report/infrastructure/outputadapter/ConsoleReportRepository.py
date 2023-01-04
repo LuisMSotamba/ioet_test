@@ -19,7 +19,7 @@ class ConsoleReportRepository(ReportRepository):
         schedule_list:List[Schedule] = []
 
         with open(path, 'r') as file:
-            
+
             lines = file.readlines()
             if len(lines)<5:
                 raise Exception('The file contains less than 5 registers') 
@@ -51,7 +51,10 @@ class ConsoleReportRepository(ReportRepository):
 
 
     def output(self) -> None:
-        pass
+
+        for [key, value] in self.results.items():
+            print(f"{key} : {value}")
+        
 
     def get_schedule(self, days_times: List[str], employee: Employee) -> List[Schedule]:
 

@@ -30,6 +30,7 @@ def test_report_defaults():
 def test_read_file(input_file_5_rows):
     console_repo = ConsoleReportRepository()
     response = console_repo.read(input_file_5_rows)
+
     assert isinstance(response,list), f'{response.__class__} is not instance of list' 
     assert isinstance(response[0],Schedule)
 
@@ -53,4 +54,18 @@ def test_process_file(input_file_5_rows):
     console_repo = ConsoleReportRepository()
     response = console_repo.read(input_file_5_rows)
     console_repo.process(response)
+
     assert console_repo.results != {}
+
+
+def test_output_result(input_file_5_rows):
+    console_repo = ConsoleReportRepository()
+    response = console_repo.read(input_file_5_rows)
+    console_repo.process(response)
+
+    try:
+        console_repo.output()
+
+    except Exception as e:
+
+        assert False, str(e)    
