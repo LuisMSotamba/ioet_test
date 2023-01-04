@@ -1,4 +1,6 @@
 from app.report.domain.Report import Report
+from app.report.infrastructure.outputadapter.ConsoleReportRepository import ConsoleReportRepository
+from app.schedule.domain.Schedule import Schedule
 
 import uuid
 
@@ -21,3 +23,10 @@ def test_report_defaults():
 
     assert report.id != test_id
     assert report.result == ''
+
+
+def test_read_file(input_file_3_rows):
+    console_repo = ConsoleReportRepository()
+    response = console_repo.read(input_file_3_rows)
+    assert isinstance(response,list), f'{response.__class__} is not instance of list' 
+    assert isinstance(response[0],Schedule)
