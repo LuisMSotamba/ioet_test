@@ -11,19 +11,23 @@ def test_schedule_existing_id(employee):
         name_day='MO',
         start_time=time,
         end_time=time,
-        user=employee
+        user=employee,
+        start_time_in_minutes=0,
+        end_time_in_minutes=0
     )
     
     assert schedule.id == test_id
 
-def test_Employee_defaults(employee):
+def test_schedule_defaults(employee):
     test_id = str(uuid.uuid4().hex)
     time = datetime.datetime.now()
     schedule = Schedule(
         name_day='MO',
         start_time=time,
         end_time=time,
-        user=employee
+        user=employee,
+        start_time_in_minutes=0,
+        end_time_in_minutes=0
     )
 
     assert schedule.id != test_id

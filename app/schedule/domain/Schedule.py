@@ -9,6 +9,8 @@ import uuid
 class Schedule:
 
     user: Employee
+    start_time_in_minutes: int
+    end_time_in_minutes: int
     start_time: datetime
     end_time: datetime
     name_day: str
