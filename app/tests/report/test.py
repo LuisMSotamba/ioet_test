@@ -1,8 +1,7 @@
-from app.report.domain.Report import Report
-from app.report.infrastructure.outputadapter.ConsoleReportRepository import ConsoleReportRepository
-from app.schedule.domain.Schedule import Schedule
-from app.report.usecases.ReportGeneration import ReportGeneration
-from app.report.domain.ReportRepository import ReportRepository
+from report.domain.Report import Report
+from report.infrastructure.outputadapter.ConsoleReportRepository import ConsoleReportRepository
+from schedule.domain.Schedule import Schedule
+from report.usecases.ReportGeneration import ReportGeneration
 
 import pytest
 import uuid
@@ -39,8 +38,9 @@ def test_read_file(input_file_5_rows):
 
 def test_read_file_with_3_rows(input_file_3_rows):
     console_repo = ConsoleReportRepository()
-    with pytest.raises(Exception):
-        console_repo.read(input_file_3_rows)
+    response = console_repo.read(input_file_3_rows)
+    
+    assert response == []
     
 
 def test_convert_hour():
@@ -76,8 +76,9 @@ def test_output_result(input_file_5_rows):
 def test_build_report_3_rows_use_case(input_file_3_rows):
     console_repo = ConsoleReportRepository()
     reportGeneration = ReportGeneration(console_repo)
-    with pytest.raises(Exception):
-        reportGeneration.build_report(input_file_3_rows)
+    response = reportGeneration.build_report(input_file_3_rows)
+
+    assert response == []
 
 
 def test_build_report_without_path():

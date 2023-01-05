@@ -1,4 +1,4 @@
-from app.employee.domain.Employee import Employee
+from employee.domain.Employee import Employee
 
 import pytest
 import os

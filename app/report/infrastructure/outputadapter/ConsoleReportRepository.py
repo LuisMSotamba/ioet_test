@@ -22,8 +22,9 @@ class ConsoleReportRepository(ReportRepository):
 
             lines = file.readlines()
             if len(lines)<5:
-                raise Exception('The file contains less than 5 registers') 
-
+                print('The file contains less than 5 registers') 
+                return []
+                
             for line in lines:
                 line = line.strip()
                 name_separation_list:list = line.split("=")

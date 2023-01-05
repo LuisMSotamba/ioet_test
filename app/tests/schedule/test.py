@@ -1,4 +1,4 @@
-from app.schedule.domain.Schedule import Schedule
+from schedule.domain.Schedule import Schedule
 
 import uuid
 import datetime
