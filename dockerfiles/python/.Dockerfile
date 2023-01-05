@@ -6,4 +6,4 @@ COPY . /app/
 
 RUN /opt/ve_ioet/bin/pip install -r /app/requirements.txt
 
-
+WORKDIR /app/

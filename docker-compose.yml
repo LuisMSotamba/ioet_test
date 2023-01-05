@@ -10,3 +10,6 @@ services:
     command: /opt/ve_ioet/bin/python /app/app/main.py
     volumes:
       - .:/app/
+      - type: bind
+        source: ./files
+        target: /app/files 
