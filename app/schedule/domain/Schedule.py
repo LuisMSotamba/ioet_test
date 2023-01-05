@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from datetime import datetime
 
-from app.employee.domain.Employee import Employee
+from employee.domain.Employee import Employee
 
 import uuid
 

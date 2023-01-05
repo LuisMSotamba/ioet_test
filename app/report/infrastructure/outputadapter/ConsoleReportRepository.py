@@ -1,8 +1,8 @@
 from typing import List, Any
 
-from app.report.domain.ReportRepository import ReportRepository
-from app.schedule.domain.Schedule import Schedule
-from app.employee.domain.Employee import Employee
+from report.domain.ReportRepository import ReportRepository
+from schedule.domain.Schedule import Schedule
+from employee.domain.Employee import Employee
 
 import datetime
 import uuid

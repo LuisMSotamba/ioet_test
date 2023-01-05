@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 from typing import List
 
-from app.schedule.domain.Schedule import Schedule
-from app.report.infrastructure.inputport.ReportInputPort import ReportInputPort
-from app.report.domain.ReportRepository import ReportRepository
+from schedule.domain.Schedule import Schedule
+from report.infrastructure.inputport.ReportInputPort import ReportInputPort
+from report.domain.ReportRepository import ReportRepository
 
 import os
 

@@ -1,6 +1,6 @@
 from typing import List
 
-from app.schedule.domain.Schedule import Schedule
+from schedule.domain.Schedule import Schedule
 
 import abc
 
