@@ -34,7 +34,7 @@ class ConsoleReportRepository(ReportRepository):
 
         return schedule_list
     
-    def process(self, schedules: List[Schedule]) -> None:
+    def process(self, schedules: List[Schedule]):
 
         schedules.sort(key=lambda item: item.start_time_in_minutes)
         employee_matching = {}
@@ -51,11 +51,12 @@ class ConsoleReportRepository(ReportRepository):
         self.results = employee_matching
 
 
-    def output(self) -> None:
-
+    def output(self):
+        output = ''
         for [key, value] in self.results.items():
-            print(f"{key} : {value}")
+            output = output + f"{key} : {value}\n"
         
+        return output
 
     def get_schedule(self, days_times: List[str], employee: Employee) -> List[Schedule]:
 

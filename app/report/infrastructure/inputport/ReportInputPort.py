@@ -1,13 +1,12 @@
 from typing import List
 
-from schedule.domain.Schedule import Schedule
-
+from report.domain.Report import Report
 import abc
 
 class ReportInputPort(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
-    def build_report(self, path:str) -> List[Schedule]:
+    def build_report(self, path:str) -> Report:
         raise NotImplementedError
     
     

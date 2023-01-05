@@ -78,7 +78,7 @@ def test_build_report_3_rows_use_case(input_file_3_rows):
     reportGeneration = ReportGeneration(console_repo)
     response = reportGeneration.build_report(input_file_3_rows)
 
-    assert response == []
+    assert isinstance(response,Report)
 
 
 def test_build_report_without_path():
@@ -94,4 +94,4 @@ def test_build_report(input_file_5_rows):
     reportGeneration = ReportGeneration(console_repo)
     result = reportGeneration.build_report(input_file_5_rows)
 
-    assert isinstance(result, list), "The result has to be of type 'list'"
+    assert isinstance(result, Report), "The result has to be of type 'Report'"

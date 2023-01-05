@@ -15,7 +15,8 @@ if __name__ == '__main__':
                 consoleRepository = ConsoleReportRepository()
                 reportUseCase = ReportGeneration(consoleRepository)
                 reportApi = ReportApi(reportUseCase)
-                reportApi.get_report(path)
+                report = reportApi.get_report(path)
+                print(report.result)
             case "2":
                 break
             case _:
