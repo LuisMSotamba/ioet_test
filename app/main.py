@@ -1,12 +1,9 @@
-import sys
-print(sys.path)
-
 from report.usecases.ReportGeneration import ReportGeneration
 from report.infrastructure.inputadapter.ReportApi import ReportApi
 from report.infrastructure.outputadapter.ConsoleReportRepository import ConsoleReportRepository
 
 if __name__ == '__main__':
-    print("Working!")
+
     while True:
         print("===== MENU =====")
         print("1. Enter the name of the file")

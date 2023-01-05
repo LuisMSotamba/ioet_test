@@ -7,6 +7,6 @@ services:
     container_name: ioet_python_environment
     tty: true
     stdin_open: true
-    command: /opt/ve_ioet/bin/python /app/app/application/main.py
+    command: /opt/ve_ioet/bin/python /app/app/main.py
     volumes:
       - .:/app/
